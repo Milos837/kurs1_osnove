@@ -35,12 +35,30 @@ public class Zadaci {
 				break;
 			case 3:
 				int min[] = minEl(niz, n);
-				System.out.printf("Minimalni element niza je %d, i nalazi se na poziciji %d.\n",min[0], min[1]);
+				//System.out.printf("Minimalni element niza je %d, i nalazi se na poziciji %d.\n",min[0], min[1]);
+				if(min.length == 2)
+					System.out.printf("Minimalni element niza je %d, i nalazi se na poziciji %d.\n",min[0], min[1]);
+				else {
+					System.out.printf("Minimalni element niza je %d, i nalazi se na pozicijama: { ",min[0]);
+					for(int i=1; i<min.length; i++) {
+						System.out.printf("%d ",min[i]);
+					}
+					System.out.printf("}\n");
+				}
 				nastavak();
 				break;
 			case 4:
 				int max[] = maxEl(niz, n);
-				System.out.printf("Maksimalni element niza je %d, i nalazi se na poziciji %d.\n",max[0], max[1]);
+				//System.out.printf("Maksimalni element niza je %d, i nalazi se na poziciji %d.\n",max[0], max[1]);
+				if(max.length == 2)
+					System.out.printf("Maksimalni element niza je %d, i nalazi se na poziciji %d.\n",max[0], max[1]);
+				else {
+					System.out.printf("Maksimalni element niza je %d, i nalazi se na pozicijama: { ",max[0]);
+					for(int i=1; i<max.length; i++) {
+						System.out.printf("%d ",max[i]);
+					}
+					System.out.printf("}\n");
+				}
 				nastavak();
 				break;
 			case 5:
@@ -106,6 +124,7 @@ public class Zadaci {
 		return prVr;
 	}
 	
+	/*	//Ova verzija ne pamti ako se min ponavlja vise puta
 	static int[] minEl(int[] niz, int n) {
 		int[] min = {niz[0], 0};
 		for (int i=1; i<n; i++) {
@@ -116,7 +135,35 @@ public class Zadaci {
 		}
 		return min;
 	}
+	*/
 	
+	static int[] minEl(int [] niz, int n) {
+		int min = niz[0];
+		for(int i=0; i<n; i++) {
+			if(niz[i] < min) {
+				min = niz[i];
+			}
+		}
+		int counter = 1;
+		for(int j=0; j<n; j++) {
+			if(niz[j] == min) {
+				counter++;
+			}
+		}
+		int[] minPoz = new int[counter];
+		int poz = 1;
+		minPoz[0] = min;
+		for (int k=0; k<n; k++) {
+			if(niz[k] == min) {
+				minPoz[poz] = k;
+				poz++;
+			}
+				
+		}
+		return minPoz;
+	}
+	
+	/*	//Ova verzija ne pamti ako se max ponavlja vise puta
 	static int[] maxEl(int[] niz, int n) {
 		int[] max = {niz[0], 0};
 		for (int i=1; i<n; i++) {
@@ -126,6 +173,33 @@ public class Zadaci {
 			}
 		}
 		return max;
+	}
+	*/
+	
+	static int[] maxEl(int [] niz, int n) {
+		int max = niz[0];
+		for(int i=0; i<n; i++) {
+			if(niz[i] > max) {
+				max = niz[i];
+			}
+		}
+		int counter = 1;
+		for(int j=0; j<n; j++) {
+			if(niz[j] == max) {
+				counter++;
+			}
+		}
+		int[] maxPoz = new int[counter];
+		int poz = 1;
+		maxPoz[0] = max;
+		for (int k=0; k<n; k++) {
+			if(niz[k] == max) {
+				maxPoz[poz] = k;
+				poz++;
+			}
+				
+		}
+		return maxPoz;
 	}
 	
 	static int traziPoziciju(int[] niz, int n) {
