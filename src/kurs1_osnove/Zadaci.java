@@ -62,11 +62,25 @@ public class Zadaci {
 				nastavak();
 				break;
 			case 5:
+				/*
 				int poz = traziPoziciju(niz, n);	
 				if(poz == -1)
 					System.out.println("Uneti broj se ne nalazi u nizu!");
 				else
 					System.out.printf("Uneti broj se nalazi na poziciji sa indeksom %d u nizu.\n", poz);
+				*/
+				int poz[] = traziPoziciju(niz, n);
+				if (poz.length == 0)
+					System.out.println("Uneti broj se ne nalazi u nizu!");
+				else if (poz.length == 1)
+					System.out.printf("Uneti broj se nalazi na poziciji sa indeksom %d u nizu.\n", poz[0]);
+				else {
+					System.out.printf("Uneti broj se nalazi na pozicijama sa indeksima: { ");
+					for(int i=0; i<poz.length; i++) {
+						System.out.printf("%d ",poz[i]);
+					}
+					System.out.printf("}\n");
+				}
 				nastavak();
 				break;
 			case 6:
@@ -202,6 +216,7 @@ public class Zadaci {
 		return maxPoz;
 	}
 	
+	/*	//Ova verzija ne pamti ako se se trazeni element ponavlja
 	static int traziPoziciju(int[] niz, int n) {
 		int pozicija = -1;
 		System.out.print("Unesite broj ciju poziciju trazite: ");
@@ -211,6 +226,26 @@ public class Zadaci {
 				pozicija = i;
 		}
 		return pozicija;		
+	}
+	*/
+	
+	static int[] traziPoziciju(int[] niz, int n) {
+		int counter = 0;
+		System.out.print("Unesite broj ciju poziciju trazite: ");
+		int broj = TextIO.getlnInt();
+		for (int i=0; i<n; i++) {
+			if(niz[i] == broj)
+				counter++;
+		}
+		int[] poz = new int[counter];
+		counter = 0;
+		for (int j=0; j<n; j++) {
+			if(niz[j] == broj) {
+				poz[counter] = j;
+				counter++;
+			}
+		}
+		return poz;		
 	}
 	
 	static void sortAsc(int[] niz, int n) {
